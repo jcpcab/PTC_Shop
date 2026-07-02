@@ -9,17 +9,17 @@ const sizes = [
     note: 'Perfect for a small gathering or keeping all to yourself. No judgment here.',
   },
   {
-    name: 'Classic',
-    diameter: '8 inch',
-    serves: 'Serves 8 to 10',
-    note: 'Our most popular size. Just right for family dinners and office parties.',
+    name: 'Round',
+    diameter: '10 inch',
+    serves: 'Serves 12 to 16',
+    note: 'The classic. Just right for family dinners, parties, and celebrations.',
     featured: true,
   },
   {
-    name: 'Celebration',
+    name: 'Square',
     diameter: '10 inch',
-    serves: 'Serves 12 to 16',
-    note: 'The centerpiece. Made for birthdays, holidays, and big milestones.',
+    serves: 'Serves 12 to 18',
+    note: 'Our biggest bake, with corner pieces for everyone who wants one.',
   },
 ]
 

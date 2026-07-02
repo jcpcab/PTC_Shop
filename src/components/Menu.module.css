@@ -1,26 +1,94 @@
 .menu {
   padding: 5rem 0;
-  background: var(--cream);
+  background: var(--bg-deep);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 2.5rem;
+.board {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--brown-panel);
+  border: 6px double var(--tan);
+  border-radius: 6px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  box-shadow: var(--shadow);
 }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.est {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--purple-soft);
+  letter-spacing: 0.08em;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  color: var(--tan);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0.2rem 0 0.6rem;
+}
+
+.flourish {
+  display: block;
+  color: var(--purple-soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.6em;
+  margin: 0.8rem 0 1.6rem;
+}
+
+.group {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--cream);
+  margin-bottom: 1.4rem;
+}
+
+.item {
+  margin-bottom: 1.5rem;
+}
+
+.item:last-of-type {
+  margin-bottom: 0.4rem;
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.45rem;
+  color: var(--tan);
+  letter-spacing: 0.06em;
+}
+
+.desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-soft);
+  max-width: 440px;
+  margin: 0.15rem auto 0;
+  line-height: 1.5;
+}
+
+.note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--purple-soft);
+  border-top: 1px solid rgba(232, 213, 188, 0.25);
+  margin-top: 2rem;
+  padding-top: 1.4rem;
 }
 
 @media (max-width: 560px) {
-  .grid {
-    grid-template-columns: 1fr;
-    max-width: 380px;
-    margin-left: auto;
-    margin-right: auto;
+  .board {
+    padding: 2.2rem 1.3rem;
   }
 }

@@ -3,20 +3,24 @@
   --purple: #7a4fb5;
   --purple-soft: #b58fd9;
   --purple-pale: #ede4f7;
+  --bg: #2b1810;
+  --bg-deep: #221108;
   --brown-dark: #38200f;
   --brown: #4a2c1a;
+  --brown-panel: #341e0e;
   --tan: #e8d5bc;
   --cream: #faf4ec;
   --white: #ffffff;
-  --text: #3a2a20;
-  --text-soft: #6b5847;
+  --text: #f0e6d8;
+  --text-soft: #c9b199;
 
   --font-display: 'Baloo 2', system-ui, sans-serif;
   --font-body: 'Nunito', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
 
   --radius: 18px;
-  --shadow: 0 10px 30px rgba(56, 32, 15, 0.12);
-  --shadow-lift: 0 16px 40px rgba(56, 32, 15, 0.18);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -32,7 +36,7 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--text);
-  background: var(--cream);
+  background: var(--bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -48,7 +52,7 @@ a {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  color: var(--brown-dark);
+  color: var(--cream);
   line-height: 1.15;
 }
 
@@ -74,7 +78,7 @@ section {
   font-size: 0.95rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--purple);
+  color: var(--purple-soft);
   margin-bottom: 0.4rem;
 }
 

@@ -1,9 +1,9 @@
 .hero {
   padding: 8.5rem 0 4rem;
   background:
-    radial-gradient(ellipse at 85% 15%, var(--purple-pale) 0%, transparent 55%),
-    radial-gradient(ellipse at 5% 90%, rgba(232, 213, 188, 0.55) 0%, transparent 50%),
-    var(--cream);
+    radial-gradient(ellipse at 85% 15%, rgba(122, 79, 181, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 5% 90%, rgba(74, 44, 26, 0.6) 0%, transparent 50%),
+    var(--bg);
   overflow: hidden;
 }
 
@@ -16,8 +16,8 @@
 
 .badge {
   display: inline-block;
-  background: var(--purple-pale);
-  color: var(--purple-deep);
+  background: rgba(122, 79, 181, 0.25);
+  color: var(--purple-soft);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.9rem;
@@ -33,7 +33,7 @@
 }
 
 .highlight {
-  color: var(--purple);
+  color: var(--purple-soft);
 }
 
 .subtitle {
@@ -71,12 +71,12 @@
 }
 
 .secondary {
-  border: 2px solid var(--purple);
-  color: var(--purple-deep);
+  border: 2px solid var(--purple-soft);
+  color: var(--purple-soft);
 }
 
 .secondary:hover {
-  background: var(--purple-pale);
+  background: rgba(122, 79, 181, 0.2);
   transform: translateY(-2px);
 }
 
@@ -89,7 +89,7 @@
   position: absolute;
   inset: -14px;
   border-radius: 32px;
-  background: linear-gradient(135deg, var(--purple-soft), var(--tan));
+  background: linear-gradient(135deg, var(--purple), var(--brown));
   transform: rotate(2.5deg);
   z-index: 0;
 }

@@ -1,6 +1,6 @@
 .sizes {
   padding: 5rem 0;
-  background: var(--white);
+  background: var(--bg);
 }
 
 .grid {
@@ -13,8 +13,8 @@
 
 .card {
   position: relative;
-  background: var(--cream);
-  border: 2px solid transparent;
+  background: var(--brown-panel);
+  border: 2px solid rgba(232, 213, 188, 0.18);
   border-radius: var(--radius);
   padding: 2rem 1.6rem;
   text-align: center;
@@ -27,7 +27,7 @@
 }
 
 .featured {
-  background: var(--purple-pale);
+  background: rgba(76, 42, 122, 0.35);
   border-color: var(--purple-soft);
 }
 
@@ -55,12 +55,12 @@
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 2rem;
-  color: var(--purple);
+  color: var(--purple-soft);
 }
 
 .serves {
   font-weight: 700;
-  color: var(--brown);
+  color: var(--tan);
   margin: 0.3rem 0 0.8rem;
 }
 

@@ -1,5 +1,5 @@
 import styles from './Hero.module.css'
-import heroImg from '../assets/hero-cheesecake.jpg'
+import heroImg from '../assets/gallery-slice.jpg'
 
 export default function Hero() {
   return (
@@ -24,7 +24,7 @@ export default function Hero() {
           </div>
         </div>
         <div className={styles.imageWrap}>
-          <img src={heroImg} alt="blueberry cheesecake" className={styles.image} />
+          <img src={heroImg} alt="slice of blueberry cheesecake" className={styles.image} />
         </div>
       </div>
     </section>

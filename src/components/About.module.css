@@ -1,6 +1,6 @@
 .about {
   padding: 5rem 0;
-  background: var(--white);
+  background: var(--bg-deep);
 }
 
 .inner {
@@ -19,7 +19,7 @@
   position: absolute;
   inset: -12px;
   border-radius: 28px;
-  background: var(--purple-pale);
+  background: var(--purple-deep);
   transform: rotate(-2deg);
 }
 
@@ -48,7 +48,7 @@
 .signoff {
   font-family: var(--font-display);
   font-weight: 700;
-  color: var(--purple-deep) !important;
+  color: var(--purple-soft) !important;
   font-size: 1.1rem;
 }
 
