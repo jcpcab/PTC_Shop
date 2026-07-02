@@ -1,0 +1,101 @@
+.order {
+  padding: 5rem 0;
+  background: linear-gradient(160deg, var(--purple-deep) 0%, var(--purple) 100%);
+}
+
+.label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--purple-soft);
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  text-align: center;
+  color: var(--white);
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2.8rem 0;
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tan);
+  color: var(--brown-dark);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 0.9rem;
+}
+
+.stepTitle {
+  color: var(--white);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.stepText {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.95rem;
+}
+
+.ctaWrap {
+  text-align: center;
+}
+
+.cta {
+  display: inline-block;
+  background: var(--white);
+  color: var(--purple-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 0.95rem 2.4rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.cta:hover {
+  background: var(--tan);
+  transform: translateY(-2px);
+}
+
+.ctaNote {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 700;
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 820px) {
+  .steps {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

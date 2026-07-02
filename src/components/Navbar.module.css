@@ -1,0 +1,146 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(250, 244, 236, 0.92);
+  backdrop-filter: blur(8px);
+  transition: box-shadow 0.3s ease;
+}
+
+.scrolled {
+  box-shadow: 0 4px 20px rgba(56, 32, 15, 0.1);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.logo {
+  width: 48px;
+  height: auto;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--purple-deep);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  list-style: none;
+}
+
+.links a {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.links a:hover {
+  color: var(--purple);
+}
+
+.cta {
+  background: var(--purple);
+  color: var(--white) !important;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cta:hover {
+  background: var(--purple-deep);
+  transform: translateY(-1px);
+}
+
+.toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--brown-dark);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.barTopOpen {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.barMidOpen {
+  opacity: 0;
+}
+
+.barBotOpen {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 820px) {
+  .toggle {
+    display: flex;
+  }
+
+  .links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--cream);
+    box-shadow: 0 12px 24px rgba(56, 32, 15, 0.14);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .linksOpen {
+    max-height: 360px;
+  }
+
+  .links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .links a {
+    display: block;
+    padding: 0.9rem 0;
+  }
+
+  .cta {
+    margin: 0.6rem auto 1rem;
+    display: inline-block;
+    padding: 0.55rem 2rem;
+  }
+}

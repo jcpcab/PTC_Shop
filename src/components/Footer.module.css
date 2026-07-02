@@ -1,0 +1,39 @@
+.footer {
+  background: var(--brown-dark);
+  padding: 3rem 0 2rem;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  text-align: center;
+}
+
+.logo {
+  width: 210px;
+}
+
+.tagline {
+  color: var(--tan);
+  font-size: 0.98rem;
+}
+
+.social {
+  color: var(--purple-soft);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.social:hover {
+  color: var(--white);
+}
+
+.copyright {
+  color: rgba(232, 213, 188, 0.55);
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+}
