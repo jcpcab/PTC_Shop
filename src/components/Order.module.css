@@ -354,30 +354,30 @@
   cursor: not-allowed;
 }
 
-/* Stamped-red order button, square like everything else on the slip. */
+/* Rubber-stamp order button: double red frame, red ink lettering, pressed
+   at a slight angle like it was stamped onto the slip. */
 .cta {
   display: inline-block;
-  background: #b8433a;
-  color: #f6f1e1;
+  background: transparent;
+  color: #b8433a;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
   font-size: 1.05rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-decoration: none;
-  padding: 0.9rem 2rem;
-  border-radius: 3px;
-  box-shadow:
-    0 3px 0 #8e332c,
-    0 10px 24px rgba(0, 0, 0, 0.25);
+  padding: 0.75rem 1.7rem;
+  border: 5px double #b8433a;
+  border-radius: 10px;
+  transform: rotate(-2deg);
   transition:
     transform 0.2s ease,
     background 0.2s ease;
 }
 
 .cta:hover {
-  background: #a63b33;
-  transform: translateY(-1px);
+  background: rgba(184, 67, 58, 0.08);
+  transform: rotate(0deg);
 }
 
 .ctaNote {
