@@ -15,13 +15,13 @@
    section, with a faded center light like an old laminated menu. */
 .card {
   position: relative;
-  background: #d9c096;
+  background: #bfa075;
   background-image: radial-gradient(
     120% 100% at 50% 20%,
-    rgba(255, 245, 222, 0.55),
+    rgba(255, 240, 214, 0.35),
     transparent 65%
   );
-  border: 1px solid rgba(56, 32, 15, 0.4);
+  border: 1px solid rgba(56, 32, 15, 0.45);
   border-radius: var(--radius);
   padding: 2rem 1.6rem;
   text-align: center;
@@ -36,7 +36,33 @@
 }
 
 .featured {
-  border: 2px solid var(--purple);
+  background: rgba(76, 42, 122, 0.35);
+  background-image: none;
+  border: 2px solid var(--purple-soft);
+}
+
+.featured .name {
+  color: var(--text);
+}
+
+.featured .diameter {
+  color: var(--purple-soft);
+}
+
+.featured .serves {
+  color: var(--tan);
+}
+
+.featured .note {
+  color: var(--text-soft);
+}
+
+.featured .price {
+  color: var(--white);
+}
+
+.featured .priceNote {
+  color: var(--text-soft);
 }
 
 .popular {
@@ -113,13 +139,9 @@
 }
 
 .infoCard {
-  background: #d9c096;
-  background-image: radial-gradient(
-    120% 100% at 50% 0%,
-    rgba(255, 245, 222, 0.45),
-    transparent 70%
-  );
-  border: 1px solid rgba(56, 32, 15, 0.4);
+  background: #bfa075;
+  background-image: radial-gradient(120% 100% at 50% 0%, rgba(255, 240, 214, 0.3), transparent 70%);
+  border: 1px solid rgba(56, 32, 15, 0.45);
   border-radius: var(--radius);
   padding: 1.6rem 1.8rem;
 }

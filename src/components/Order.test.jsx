@@ -35,7 +35,7 @@ describe('Order form validation', () => {
 
     expect(screen.getByText(/enter your name/i)).toBeInTheDocument()
     expect(screen.getByText(/enter your instagram/i)).toBeInTheDocument()
-    expect(screen.getByText("Please choose a flavor.")).toBeInTheDocument()
+    expect(screen.getByText('Please choose a flavor.')).toBeInTheDocument()
     expect(screen.getByText(/choose a size/i)).toBeInTheDocument()
     expect(screen.getByText(/choose a date/i)).toBeInTheDocument()
     expect(window.open).not.toHaveBeenCalled()

@@ -63,8 +63,8 @@ export default function Sizes() {
               All cheesecakes contain dairy and eggs, and the crust contains gluten. The PB&amp;J
               and Peanut Butter flavors contain peanuts. Everything is made in a kitchen that also
               handles peanuts, wheat, dairy, and eggs, so cross-contact is possible. Let us know
-              about any allergies when you order and we&rsquo;re happy to talk through options,
-              but we do not offer dedicated gluten-free, dairy-free, or nut-free bakes.
+              about any allergies when you order and we&rsquo;re happy to talk through options, but
+              we do not offer dedicated gluten-free, dairy-free, or nut-free bakes.
             </p>
           </div>
 
@@ -72,8 +72,8 @@ export default function Sizes() {
             <h3 className={styles.infoTitle}>Pickup &amp; delivery</h3>
             <ul className={styles.infoList}>
               <li>
-                <strong>Pickup:</strong> Loma Linda &mdash; we&rsquo;ll arrange a time and share
-                the exact address when your order is confirmed
+                <strong>Pickup:</strong> Loma Linda &mdash; we&rsquo;ll arrange a time and share the
+                exact address when your order is confirmed
               </li>
               <li>
                 <strong>Also available:</strong> pickup in Koreatown, Los Angeles by arrangement
