@@ -105,17 +105,25 @@ export default function Order() {
     return Object.keys(next).length === 0
   }
 
+  function describeSize() {
+    // 'Square' alone is ambiguous on a receipt — spell out size and servings.
+    const s = sizes.find((entry) => entry.name === form.size)
+    return s ? `${s.name} — ${s.diameter} (${s.serves})` : form.size
+  }
+
   function buildOrderText() {
     return [
-      'New Pass The Cake order',
+      `${form.name.trim()}'s Pass The Cake order`,
       '------------------------',
-      `Name: ${form.name}`,
+      `Name: ${form.name.trim()}`,
       `Contact (${form.contactMethod}): ${form.contactHandle}`,
       `Flavor: ${form.flavor}`,
-      `Size: ${form.size}`,
+      `Size: ${describeSize()}`,
       `Quantity: ${form.quantity}`,
       `Date needed: ${form.dateNeeded}`,
-      form.instructions.trim() ? `Special instructions: ${form.instructions.trim()}` : null,
+      form.instructions.trim()
+        ? `Special requests/instructions: ${form.instructions.trim()}`
+        : null,
     ]
       .filter(Boolean)
       .join('\n')
@@ -160,12 +168,12 @@ export default function Order() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        _subject: 'New Pass The Cake order',
+        _subject: `${form.name.trim()}'s Pass The Cake order`,
         name: form.name,
         contactMethod: form.contactMethod,
         contactHandle: form.contactHandle,
         flavor: form.flavor,
-        size: form.size,
+        size: describeSize(),
         quantity: form.quantity,
         dateNeeded: form.dateNeeded,
         instructions: form.instructions,
@@ -400,7 +408,9 @@ export default function Order() {
                     ? 'Copied to your clipboard! Paste it into the Instagram DM and hit send.'
                     : 'We couldn\u2019t auto-copy on this browser \u2014 use the button below, then paste it into the Instagram DM.'}
                 </p>
-                <pre className={styles.orderText}>{sentOrder.text}</pre>
+                <div className={styles.receipt}>
+                  <pre className={styles.orderText}>{sentOrder.text}</pre>
+                </div>
                 <button type="button" className={styles.copyAgain} onClick={handleCopyAgain}>
                   {copyAgainLabel}
                 </button>

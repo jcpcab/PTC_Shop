@@ -132,18 +132,64 @@
   justify-items: center;
 }
 
-.orderText {
+/* Vintage receipt: yellowed paper, typewriter type, sawtooth torn edges. */
+.receipt {
+  --paper: #f6efe0;
+  position: relative;
   width: 100%;
+  max-width: 340px;
+  background: var(--paper);
+  padding: 1.4rem 1.1rem;
+  margin: 12px 0;
+  transform: rotate(-1deg);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.receipt::before,
+.receipt::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background-repeat: repeat-x;
+  background-size: 24px 24px;
+}
+
+/* torn edge pointing up, above the paper */
+.receipt::before {
+  top: -12px;
+  background-image:
+    linear-gradient(135deg, transparent 12px, var(--paper) 0),
+    linear-gradient(-135deg, transparent 12px, var(--paper) 0);
+  background-position: 6px 0;
+}
+
+/* torn edge pointing down, below the paper */
+.receipt::after {
+  bottom: -12px;
+  background-image:
+    linear-gradient(45deg, transparent 12px, var(--paper) 0),
+    linear-gradient(-45deg, transparent 12px, var(--paper) 0);
+  background-position: 6px 0;
+}
+
+.orderText {
   text-align: left;
   white-space: pre-wrap;
   word-break: break-word;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--white);
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
-  padding: 0.9rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: #46362a;
+  /* faint ruled-paper lines for the vintage feel */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 1.55em,
+    rgba(70, 54, 42, 0.08) 1.55em,
+    rgba(70, 54, 42, 0.08) calc(1.55em + 1px)
+  );
   margin: 0;
   user-select: all;
 }
