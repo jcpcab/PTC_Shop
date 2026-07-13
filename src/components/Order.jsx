@@ -18,7 +18,7 @@ const steps = [
   {
     number: '3',
     title: 'Pass the cake',
-    text: 'We bake it fresh, box it up, and get it to you. All that is left is deciding who gets the first slice.',
+    text: 'We bake it fresh, box it up, and have it ready for pickup. All that is left is deciding who gets the first slice.',
   },
 ]
 
@@ -464,7 +464,7 @@ export default function Order() {
             )}
             <p className={styles.ctaNote}>@passthecakeshop</p>
             <p className={styles.thankYou} aria-hidden="true">
-              Thank You &mdash; Call Again
+              Thank You &mdash; Pass It On
             </p>
           </div>
         </div>
