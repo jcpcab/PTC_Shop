@@ -13,7 +13,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(12, 130px);
+  grid-template-rows: repeat(12, clamp(64px, 10.7vw, 130px));
   grid-template-areas:
     'a a b c'
     'a a b c'
@@ -27,7 +27,7 @@
     'l j k e'
     'n j k e'
     'n j k e';
-  gap: 1.4rem;
+  gap: clamp(0.8rem, 1.9vw, 1.4rem);
   margin-top: 2.5rem;
 }
 
@@ -219,7 +219,8 @@
     grid-template-rows: none;
     grid-template-areas: none;
     grid-auto-rows: auto;
-    gap: 1.4rem;
+    grid-auto-flow: dense;
+    gap: 1rem;
   }
 
   .item:nth-child(-n + 14) {
