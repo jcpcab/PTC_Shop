@@ -230,16 +230,6 @@
   .item {
     aspect-ratio: 3 / 4;
   }
-
-  /* the dog photo, the cutting video, the garden boxes, and the in-hand
-     shot are near-9:16 — keep them tall */
-  .item:nth-child(2),
-  .item:nth-child(9),
-  .item:nth-child(11),
-  .item:nth-child(13) {
-    aspect-ratio: 9 / 16;
-    grid-row: span 2;
-  }
 }
 
 .overlay {
