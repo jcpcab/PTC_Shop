@@ -19,16 +19,74 @@ import boxesWebp from '../assets/gallery-boxes.webp'
 import blueberry from '../assets/hero-cheesecake.jpg'
 import blueberryWebp from '../assets/hero-cheesecake.webp'
 
+// Each photo hangs in its own frame on the gallery wall: gilded gold, dark
+// wood, cream-matted bronze, or a taped snapshot like the hero/about photos.
 const pics = [
-  { src: slice, webp: sliceWebp, alt: 'slice of blueberry cheesecake', w: 675, h: 900 },
-  { src: ubeBox, webp: ubeBoxWebp, alt: 'ube cheesecake boxed up', w: 506, h: 900 },
-  { src: blueberry, webp: blueberryWebp, alt: 'blueberry cheesecake', w: 700, h: 933 },
-  { src: dog, webp: dogWebp, alt: 'my husky eyeing an ube cheesecake', w: 506, h: 900 },
-  { src: flowers, webp: flowersWebp, alt: 'boxed cheesecake in front of flowers', w: 506, h: 900 },
-  { src: outdoor, webp: outdoorWebp, alt: 'cheesecake ready for pickup', w: 506, h: 900 },
-  { src: dark, webp: darkWebp, alt: 'cheesecake at dinner', w: 506, h: 900 },
-  { src: boxes, webp: boxesWebp, alt: 'boxed cheesecakes ready to go', w: 506, h: 900 },
+  {
+    src: slice,
+    webp: sliceWebp,
+    alt: 'slice of blueberry cheesecake',
+    w: 675,
+    h: 900,
+    frame: 'gold',
+  },
+  {
+    src: ubeBox,
+    webp: ubeBoxWebp,
+    alt: 'ube cheesecake boxed up',
+    w: 506,
+    h: 900,
+    frame: 'snapshot',
+  },
+  {
+    src: blueberry,
+    webp: blueberryWebp,
+    alt: 'blueberry cheesecake',
+    w: 700,
+    h: 933,
+    frame: 'wood',
+  },
+  {
+    src: dog,
+    webp: dogWebp,
+    alt: 'my husky eyeing an ube cheesecake',
+    w: 506,
+    h: 900,
+    frame: 'mat',
+  },
+  {
+    src: flowers,
+    webp: flowersWebp,
+    alt: 'boxed cheesecake in front of flowers',
+    w: 506,
+    h: 900,
+    frame: 'wood',
+  },
+  {
+    src: outdoor,
+    webp: outdoorWebp,
+    alt: 'cheesecake ready for pickup',
+    w: 506,
+    h: 900,
+    frame: 'mat',
+  },
+  { src: dark, webp: darkWebp, alt: 'cheesecake at dinner', w: 506, h: 900, frame: 'gold' },
+  {
+    src: boxes,
+    webp: boxesWebp,
+    alt: 'boxed cheesecakes ready to go',
+    w: 506,
+    h: 900,
+    frame: 'snapshot',
+  },
 ]
+
+const frameClass = {
+  gold: 'frameGold',
+  wood: 'frameWood',
+  mat: 'frameMat',
+  snapshot: 'frameSnapshot',
+}
 
 export default function Gallery() {
   const [ref, visible] = useFadeIn()
@@ -107,7 +165,7 @@ export default function Gallery() {
         </p>
         <div className={styles.grid}>
           {pics.map((pic, index) => (
-            <figure key={pic.alt} className={styles.item}>
+            <figure key={pic.alt} className={`${styles.item} ${styles[frameClass[pic.frame]]}`}>
               <button
                 type="button"
                 className={styles.itemButton}

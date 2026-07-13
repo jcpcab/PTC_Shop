@@ -1,38 +1,53 @@
+/* A gallery wall: deep teal statement wall with a soft light from above,
+   photos hung in mismatched frames. */
 .gallery {
   padding: 5rem 0;
-  background: var(--bg);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 235, 200, 0.08), transparent 60%),
+    linear-gradient(165deg, #2e4d53 0%, #223d43 55%, #1c3238 100%);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  gap: 1.7rem;
   margin-top: 2.5rem;
 }
 
 .item {
+  position: relative;
   margin: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
   aspect-ratio: 3 / 4;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease;
+}
+
+/* Hung by hand, not by laser level. */
+.item:nth-child(4n + 1) {
+  transform: rotate(-1.2deg);
+}
+
+.item:nth-child(4n + 2) {
+  transform: rotate(0.9deg);
+}
+
+.item:nth-child(4n + 3) {
+  transform: rotate(-0.7deg);
+}
+
+.item:nth-child(4n + 4) {
+  transform: rotate(1.1deg);
+}
+
+.item:hover {
+  transform: rotate(0deg) scale(1.02);
+  z-index: 1;
 }
 
 .item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.item:hover img {
-  transform: scale(1.05);
-}
-
-@media (max-width: 820px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .itemButton {
@@ -43,6 +58,69 @@
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.itemButton picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Gilded gold frame with a bright ridge. */
+.frameGold {
+  padding: 11px;
+  background: linear-gradient(135deg, #b3831f, #ecd27e 30%, #9c711a 65%, #dfc063);
+  box-shadow:
+    inset 0 0 0 2px rgba(90, 60, 10, 0.75),
+    inset 0 0 0 4px rgba(255, 243, 205, 0.55),
+    0 12px 26px rgba(0, 0, 0, 0.45);
+}
+
+/* Dark wood frame with a thin gold fillet. */
+.frameWood {
+  padding: 12px;
+  background: linear-gradient(160deg, #6a3f22, #8a5530 45%, #522d15);
+  box-shadow:
+    inset 0 0 0 2px #33200f,
+    inset 0 0 0 5px rgba(220, 185, 90, 0.5),
+    0 12px 26px rgba(0, 0, 0, 0.45);
+}
+
+/* Slim bronze frame with a wide cream mat. */
+.frameMat {
+  padding: 8px;
+  background: linear-gradient(150deg, #7c5a33, #97744a);
+}
+
+.frameMat .itemButton {
+  padding: 14px;
+  background: var(--cream);
+}
+
+/* Taped snapshot, same as the hero and about photos. */
+.frameSnapshot .itemButton {
+  padding: 10px 10px 12px;
+  background: var(--cream);
+}
+
+.frameSnapshot::after {
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 84px;
+  height: 24px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(232, 213, 188, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+@media (max-width: 820px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
 }
 
 .overlay {
