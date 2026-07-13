@@ -14,22 +14,42 @@
   position: relative;
 }
 
+/* Soft purple glow behind the snapshot — coloring kept, slab shape gone. */
 .imageWrap::before {
   content: '';
   position: absolute;
-  inset: -12px;
-  border-radius: 28px;
-  background: var(--purple-deep);
-  transform: rotate(-2deg);
+  inset: 4px;
+  background: linear-gradient(150deg, var(--purple-deep), var(--brown));
+  filter: blur(30px);
+  opacity: 0.65;
+  z-index: 0;
 }
 
+/* A strip of old tape holding the photo up. */
+.imageWrap::after {
+  content: '';
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 110px;
+  height: 30px;
+  transform: translateX(-50%) rotate(3deg);
+  background: rgba(232, 213, 188, 0.35);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* Vintage snapshot: cream print border, slight tilt, square corners. */
 .image {
   position: relative;
+  z-index: 1;
   width: 100%;
   /* height:auto keeps the photo at its native aspect ratio — without it the
      HTML height attribute stretches the image to a fixed pixel height. */
   height: auto;
-  border-radius: 22px;
+  border: 12px solid var(--cream);
+  border-radius: 2px;
+  transform: rotate(1.2deg);
   box-shadow: var(--shadow);
 }
 
