@@ -54,6 +54,9 @@ const initialForm = {
   name: '',
   contactMethod: 'Instagram',
   contactHandle: '',
+  // Required only when contact method is Email — email can be slow, so we
+  // always collect a phone number as a faster fallback. Not vice versa.
+  phone: '',
   flavor: '',
   size: '',
   quantity: 1,
@@ -87,6 +90,9 @@ export default function Order() {
     if (!form.contactHandle.trim()) {
       next.contactHandle = `Please enter your ${activeMethod.label.toLowerCase()}.`
     }
+    if (form.contactMethod === 'Email' && !form.phone.trim()) {
+      next.phone = 'Please also add a phone number so we can reach you faster.'
+    }
     if (!form.flavor) next.flavor = 'Please choose a flavor.'
     if (!form.size) next.size = 'Please choose a size.'
     if (!form.quantity || Number(form.quantity) < 1) {
@@ -117,6 +123,7 @@ export default function Order() {
       '------------------------',
       `Name: ${form.name.trim()}`,
       `Contact (${form.contactMethod}): ${form.contactHandle}`,
+      form.phone.trim() ? `Phone: ${form.phone.trim()}` : null,
       `Flavor: ${form.flavor}`,
       `Size: ${describeSize()}`,
       `Quantity: ${form.quantity}`,
@@ -172,6 +179,7 @@ export default function Order() {
         name: form.name,
         contactMethod: form.contactMethod,
         contactHandle: form.contactHandle,
+        phone: form.phone,
         flavor: form.flavor,
         size: describeSize(),
         quantity: form.quantity,
@@ -262,6 +270,26 @@ export default function Order() {
               )}
             </div>
           </div>
+
+          {form.contactMethod === 'Email' && (
+            <div className={styles.field}>
+              <label htmlFor="order-phone">Phone number (email can be slow to check)</label>
+              <input
+                id="order-phone"
+                type="tel"
+                placeholder="(555) 555-5555"
+                value={form.phone}
+                onChange={(e) => updateField('phone', e.target.value)}
+                aria-invalid={Boolean(errors.phone)}
+                aria-describedby={errors.phone ? 'order-phone-error' : undefined}
+              />
+              {errors.phone && (
+                <p id="order-phone-error" className={styles.error}>
+                  {errors.phone}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className={styles.fieldRow}>
             <div className={styles.field}>

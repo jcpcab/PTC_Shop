@@ -89,6 +89,23 @@ describe('Order form validation', () => {
     expect(window.open).toHaveBeenCalledOnce()
   })
 
+  it('requires a phone number when contact method is Email, but not for Phone', async () => {
+    render(<Order />)
+    fillValidForm()
+    fireEvent.change(screen.getByLabelText(/contact method/i), { target: { value: 'Email' } })
+    fireEvent.change(screen.getByLabelText(/^email/i), { target: { value: 'j@example.com' } })
+    fireEvent.click(screen.getByRole('button', { name: /copy order/i }))
+    expect(screen.getByText(/also add a phone number/i)).toBeInTheDocument()
+    expect(window.open).not.toHaveBeenCalled()
+
+    // Phone method needs no extra field
+    fireEvent.change(screen.getByLabelText(/contact method/i), { target: { value: 'Phone' } })
+    fireEvent.change(screen.getByLabelText(/^phone/i), { target: { value: '555-555-5555' } })
+    fireEvent.click(screen.getByRole('button', { name: /copy order/i }))
+    expect(await screen.findByRole('status')).toBeInTheDocument()
+    expect(window.open).toHaveBeenCalledOnce()
+  })
+
   it('silently drops the submission when the honeypot is filled', async () => {
     render(<Order />)
     fillValidForm()
