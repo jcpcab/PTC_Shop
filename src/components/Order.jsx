@@ -464,7 +464,7 @@ export default function Order() {
             )}
             <p className={styles.ctaNote}>@passthecakeshop</p>
             <p className={styles.thankYou} aria-hidden="true">
-              Thank You &mdash; Pass It On
+              Thank You &#9733; Pass It On
             </p>
           </div>
         </div>
