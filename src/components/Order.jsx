@@ -456,9 +456,6 @@ export default function Order() {
                 </p>
                 <div className={styles.receipt}>
                   <pre className={styles.orderText}>{sentOrder.text}</pre>
-                  <p className={styles.thankYou} aria-hidden="true">
-                    Thank You &mdash; Call Again
-                  </p>
                 </div>
                 <button type="button" className={styles.copyAgain} onClick={handleCopyAgain}>
                   {copyAgainLabel}
@@ -466,6 +463,9 @@ export default function Order() {
               </div>
             )}
             <p className={styles.ctaNote}>@passthecakeshop</p>
+            <p className={styles.thankYou} aria-hidden="true">
+              Thank You &mdash; Call Again
+            </p>
           </div>
         </div>
       </div>

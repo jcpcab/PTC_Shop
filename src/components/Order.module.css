@@ -32,27 +32,27 @@
    matching the guest-check form below. */
 .step {
   background: #f6f1e1;
-  border-radius: 10px;
+  border-radius: 0;
   border-top: 3px double rgba(84, 110, 140, 0.55);
   padding: 1.8rem 1.5rem;
   text-align: center;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
 }
 
+/* Red stamped check number, like the numbering on a guest-check pad. */
 .number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: transparent;
-  border: 2px solid #b8433a;
+  display: inline-block;
   color: #b8433a;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.2rem;
-  margin-bottom: 0.9rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.6rem;
+}
+
+.number::before {
+  content: 'No.\00a0';
+  font-size: 0.7em;
 }
 
 .stepTitle {
@@ -74,15 +74,33 @@
   --ticket-line: rgba(84, 110, 140, 0.55);
   position: relative;
   background: var(--ticket-paper);
-  /* single red margin line down the left, like a real guest check */
-  background-image: linear-gradient(
-    to right,
-    transparent 22px,
-    rgba(200, 90, 74, 0.55) 22px,
-    rgba(200, 90, 74, 0.55) 23px,
-    transparent 23px
-  );
-  border-radius: 10px 10px 0 0;
+  /* layers: faint aging light at the top, red margin line down the left,
+     and the classic double price-column rule down the right */
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 250, 0.4), transparent 140px),
+    linear-gradient(
+      to right,
+      transparent 22px,
+      rgba(200, 90, 74, 0.55) 22px,
+      rgba(200, 90, 74, 0.55) 23px,
+      transparent 23px
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(100% - 88px),
+      var(--ticket-line) calc(100% - 88px),
+      var(--ticket-line) calc(100% - 87px),
+      transparent calc(100% - 87px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(100% - 56px),
+      var(--ticket-line) calc(100% - 56px),
+      var(--ticket-line) calc(100% - 55px),
+      transparent calc(100% - 55px)
+    );
+  /* square corners — it's a slip torn off an order pad, not a card */
+  border-radius: 0;
   padding: 2rem;
   max-width: 640px;
   margin: 0 auto;
@@ -109,7 +127,7 @@
   margin: -2rem -2rem 1.6rem;
   padding: 1.1rem 1.5rem 0.9rem;
   background: #f6f1e1;
-  border-radius: 10px 10px 0 0;
+  border-radius: 0;
   border-bottom: 2px solid var(--ticket-line);
   text-align: center;
 }
@@ -127,23 +145,25 @@
 
 .ticketMeta {
   display: flex;
-  justify-content: center;
+  margin: 0.8rem -1.5rem -0.9rem;
+  border-top: 1px solid var(--ticket-line);
 }
 
 .metaBox {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.1rem;
-  border: 1px solid var(--ticket-line);
-  border-left-width: 0;
-  padding: 0.3rem 0.9rem;
+  border-right: 1px solid var(--ticket-line);
+  padding: 0.35rem 0.5rem;
   font-size: 0.85rem;
   color: #3c4c5e;
   font-weight: 700;
 }
 
-.metaBox:first-child {
-  border-left-width: 1px;
+.metaBox:last-child {
+  border-right: none;
 }
 
 .metaLabel {
@@ -158,6 +178,8 @@
   color: #b8433a;
   font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
 }
 
 .field {
@@ -267,14 +289,15 @@
   user-select: all;
 }
 
+/* Printed at the very bottom edge of the slip, like the pads have. */
 .thankYou {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   color: #3c4c5e;
   text-align: center;
-  margin: 1rem 0 0;
+  margin: 1.6rem 0 -0.6rem;
 }
 
 .copyAgain {
@@ -369,5 +392,9 @@
 
   .ticketHeader {
     margin: -1.5rem -1.5rem 1.4rem;
+  }
+
+  .ticketMeta {
+    margin: 0.8rem -1.5rem -0.9rem;
   }
 }
