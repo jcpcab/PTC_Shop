@@ -13,20 +13,20 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(12, 96px);
+  grid-template-rows: repeat(12, 130px);
   grid-template-areas:
     'a a b c'
     'a a b c'
-    'a a b c'
-    'e d b i'
-    'e d j i'
-    'e d j i'
-    'e f f i'
-    'g f f h'
-    'g k m h'
-    'g k m h'
-    'l k m n'
-    'l k m n';
+    'a a b d'
+    'a a b d'
+    'a a f d'
+    'g i f m'
+    'g i h m'
+    'g i h m'
+    'l i h m'
+    'l j k e'
+    'n j k e'
+    'n j k e';
   gap: 1.4rem;
   margin-top: 2.5rem;
 }
@@ -230,10 +230,11 @@
     aspect-ratio: 3 / 4;
   }
 
-  /* the dog photo and the two videos are near-9:16 — keep them tall */
+  /* the dog photo, the cutting video, and the in-hand shot are near-9:16 —
+     keep them tall */
   .item:nth-child(2),
-  .item:nth-child(5),
-  .item:nth-child(9) {
+  .item:nth-child(9),
+  .item:nth-child(13) {
     aspect-ratio: 9 / 16;
     grid-row: span 2;
   }
