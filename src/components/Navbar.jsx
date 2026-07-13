@@ -12,6 +12,7 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeHref, setActiveHref] = useState(null)
   const navRef = useRef(null)
 
   useEffect(() => {
@@ -46,6 +47,29 @@ export default function Navbar() {
     }
   }, [open])
 
+  // Highlight the nav link for whichever section is currently in view.
+  useEffect(() => {
+    const sections = links.map((link) => document.querySelector(link.href)).filter(Boolean)
+
+    if (sections.length === 0) return undefined
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+
+        if (visible.length > 0) {
+          setActiveHref(`#${visible[0].target.id}`)
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <nav ref={navRef} className={`container ${styles.nav}`}>
@@ -70,7 +94,12 @@ export default function Navbar() {
         <ul id="primary-navigation" className={`${styles.links} ${open ? styles.linksOpen : ''}`}>
           {links.map((link) => (
             <li key={link.href}>
-              <a href={link.href} onClick={() => setOpen(false)}>
+              <a
+                href={link.href}
+                className={activeHref === link.href ? styles.active : undefined}
+                aria-current={activeHref === link.href ? 'true' : undefined}
+                onClick={() => setOpen(false)}
+              >
                 {link.label}
               </a>
             </li>

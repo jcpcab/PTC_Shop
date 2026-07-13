@@ -148,3 +148,7 @@
     padding: 0.55rem 2rem;
   }
 }
+
+.links a.active {
+  color: var(--purple-soft);
+}
