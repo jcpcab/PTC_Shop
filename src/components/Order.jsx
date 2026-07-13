@@ -37,6 +37,10 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpqvzzbw'
 
 const MIN_LEAD_DAYS = 3
 
+// Shown as a flavor choice for custom requests; when picked, the special
+// instructions field becomes required so we know what to bake.
+const OTHER_FLAVOR = 'Other / Special request'
+
 function getMinDate() {
   // Build the date string from local time — toISOString() is UTC and can be
   // a day off near midnight for users west of Greenwich.
@@ -89,6 +93,9 @@ export default function Order() {
       next.dateNeeded = 'Please choose a date.'
     } else if (form.dateNeeded < getMinDate()) {
       next.dateNeeded = `Please choose a date at least ${MIN_LEAD_DAYS} days out.`
+    }
+    if (form.flavor === OTHER_FLAVOR && !form.instructions.trim()) {
+      next.instructions = 'Tell us about the flavor you have in mind.'
     }
 
     setErrors(next)
@@ -257,6 +264,7 @@ export default function Order() {
                     </option>
                   ))}
                 </optgroup>
+                <option value={OTHER_FLAVOR}>{OTHER_FLAVOR}</option>
               </select>
               {errors.flavor && (
                 <p id="order-flavor-error" className={styles.error}>
@@ -335,7 +343,14 @@ export default function Order() {
               placeholder="Allergies, message on the box, anything else we should know"
               value={form.instructions}
               onChange={(e) => updateField('instructions', e.target.value)}
+              aria-invalid={Boolean(errors.instructions)}
+              aria-describedby={errors.instructions ? 'order-instructions-error' : undefined}
             />
+            {errors.instructions && (
+              <p id="order-instructions-error" className={styles.error}>
+                {errors.instructions}
+              </p>
+            )}
           </div>
 
           {/* Honeypot field — visually hidden and skipped by keyboard/screen

@@ -65,6 +65,25 @@ describe('Order form validation', () => {
     expect(navigator.clipboard.writeText).toHaveBeenCalledOnce()
   })
 
+  it('requires special instructions when "Other / Special request" is chosen', async () => {
+    render(<Order />)
+    fillValidForm()
+    fireEvent.change(screen.getByLabelText(/^flavor$/i), {
+      target: { value: 'Other / Special request' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /copy order/i }))
+
+    expect(screen.getByText(/flavor you have in mind/i)).toBeInTheDocument()
+    expect(window.open).not.toHaveBeenCalled()
+
+    fireEvent.change(screen.getByLabelText(/special instructions/i), {
+      target: { value: 'Matcha strawberry, if possible!' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /copy order/i }))
+    expect(await screen.findByRole('status')).toBeInTheDocument()
+    expect(window.open).toHaveBeenCalledOnce()
+  })
+
   it('silently drops the submission when the honeypot is filled', async () => {
     render(<Order />)
     fillValidForm()
