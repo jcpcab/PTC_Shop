@@ -61,8 +61,7 @@ export default function Menu() {
           ))}
 
           <p className={styles.note}>
-            Every cheesecake is baked to order. By request flavors just need a
-            little extra notice.
+            Every cheesecake is baked to order. By request flavors just need a little extra notice.
           </p>
         </div>
       </div>

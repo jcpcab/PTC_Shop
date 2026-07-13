@@ -63,7 +63,9 @@
   color: var(--white) !important;
   padding: 0.55rem 1.3rem;
   border-radius: 999px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .cta:hover {
@@ -90,7 +92,9 @@
   width: 100%;
   border-radius: 2px;
   background: var(--tan);
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .barTopOpen {

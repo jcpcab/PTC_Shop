@@ -38,8 +38,7 @@ export default function Sizes() {
         <span className="sectionLabel">Sizes</span>
         <h2 className="sectionTitle">Made for every occasion</h2>
         <p className="sectionIntro">
-          Every size is baked to order. Message us for current pricing and
-          availability.
+          Every size is baked to order. Message us for current pricing and availability.
         </p>
         <div className={styles.grid}>
           {sizes.map((size) => (
@@ -51,7 +50,9 @@ export default function Sizes() {
               <h3 className={styles.name}>{size.name}</h3>
               <p className={styles.diameter}>{size.diameter}</p>
               <p className={styles.serves}>{size.serves}</p>
-              <p className={styles.price}>{size.price} <span className={styles.priceNote}>starting</span></p>
+              <p className={styles.price}>
+                {size.price} <span className={styles.priceNote}>starting</span>
+              </p>
               <p className={styles.note}>{size.note}</p>
             </div>
           ))}
@@ -61,10 +62,9 @@ export default function Sizes() {
           <div className={styles.infoCard}>
             <h3 className={styles.infoTitle}>Allergen info</h3>
             <p className={styles.infoText}>
-              All cheesecakes contain dairy and eggs, and the crust contains
-              gluten. The PB&amp;J and Peanut Butter flavors contain peanuts.
-              Let us know about any allergies when you order and we&rsquo;re
-              happy to talk through options, but we do not currently offer
+              All cheesecakes contain dairy and eggs, and the crust contains gluten. The PB&amp;J
+              and Peanut Butter flavors contain peanuts. Let us know about any allergies when you
+              order and we&rsquo;re happy to talk through options, but we do not currently offer
               dedicated gluten-free, dairy-free, or nut-free bakes.
             </p>
           </div>
@@ -83,8 +83,8 @@ export default function Sizes() {
                 <strong>Delivery:</strong> [add delivery availability and any fee]
               </li>
               <li>
-                <strong>Lead time:</strong> at least 3 days for signature
-                flavors, more for by-request flavors
+                <strong>Lead time:</strong> at least 3 days for signature flavors, more for
+                by-request flavors
               </li>
             </ul>
           </div>

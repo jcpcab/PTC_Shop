@@ -38,21 +38,15 @@ export default function Gallery() {
         <span className="sectionLabel">Gallery</span>
         <h2 className="sectionTitle">Fresh out of the kitchen</h2>
         <p className="sectionIntro">
-          Real bakes from real orders. Tag us @passthecakeshop when yours
-          arrives and you might end up here too.
+          Real bakes from real orders. Tag us @passthecakeshop when yours arrives and you might end
+          up here too.
         </p>
         <div className={styles.grid}>
           {pics.map((pic) => (
             <figure key={pic.alt} className={styles.item}>
               <picture>
                 <source srcSet={pic.webp} type="image/webp" />
-                <img
-                  src={pic.src}
-                  alt={pic.alt}
-                  loading="lazy"
-                  width={pic.w}
-                  height={pic.h}
-                />
+                <img src={pic.src} alt={pic.alt} loading="lazy" width={pic.w} height={pic.h} />
               </picture>
             </figure>
           ))}

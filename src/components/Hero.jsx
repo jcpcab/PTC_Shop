@@ -12,8 +12,8 @@ export default function Hero() {
             Cheesecake worth <span className={styles.highlight}>passing around</span>
           </h1>
           <p className={styles.subtitle}>
-            Home of the signature Ube Cheesecake. Baked in small batches since
-            2017 and made fresh for every single order.
+            Home of the signature Ube Cheesecake. Baked in small batches since 2017 and made fresh
+            for every single order.
           </p>
           <div className={styles.actions}>
             <a href="#order" className={styles.primary}>
@@ -33,7 +33,7 @@ export default function Hero() {
               className={styles.image}
               width="675"
               height="900"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </picture>
         </div>
