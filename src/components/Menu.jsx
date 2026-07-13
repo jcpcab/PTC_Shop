@@ -39,7 +39,9 @@ export default function Menu() {
       <div ref={ref} className={`container fadeIn ${visible ? 'visible' : ''}`}>
         <div className={styles.board}>
           <span className={styles.est}>Est. 2017</span>
-          <h2 className={styles.title}>The Menu</h2>
+          <h2 className={styles.title}>
+            PASS <span className={styles.titleThe}>the</span> CAKE
+          </h2>
           <span className={styles.flourish}>&#10022; &#10022; &#10022;</span>
 
           <h3 className={styles.group}>Signature Flavors</h3>

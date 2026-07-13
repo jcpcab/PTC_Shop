@@ -28,9 +28,19 @@
   font-weight: 600;
   font-size: clamp(2.4rem, 5vw, 3.2rem);
   color: var(--brown-dark);
-  text-transform: uppercase;
   letter-spacing: 0.12em;
   margin: 0.2rem 0 0.6rem;
+}
+
+/* Small italic 'the' between the big words, vintage-menu style. */
+.titleThe {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.5em;
+  letter-spacing: 0.06em;
+  color: var(--purple-deep);
+  vertical-align: 0.25em;
+  margin: 0 0.15em;
 }
 
 .flourish {
