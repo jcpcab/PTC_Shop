@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jcpcab.github.io/PTC_Shop/sitemap.xml
