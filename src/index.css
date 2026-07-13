@@ -110,3 +110,28 @@ section {
     transition: none;
   }
 }
+
+:focus-visible {
+  outline: 3px solid var(--purple-soft);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skipLink {
+  position: absolute;
+  top: -60px;
+  left: 1rem;
+  z-index: 1000;
+  background: var(--tan);
+  color: var(--brown-dark);
+  font-family: var(--font-display);
+  font-weight: 800;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skipLink:focus {
+  top: 1rem;
+}

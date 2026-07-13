@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './Navbar.module.css'
 import logo from '../assets/logo-circle.png'
 
@@ -12,6 +12,7 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navRef = useRef(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -20,17 +21,45 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Close the mobile menu on Escape or on a click/tap outside the nav.
+  useEffect(() => {
+    if (!open) return undefined
+
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+
+    function handleOutsideClick(e) {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener('touchstart', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('touchstart', handleOutsideClick)
+    }
+  }, [open])
+
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
-      <nav className={`container ${styles.nav}`}>
+      <nav ref={navRef} className={`container ${styles.nav}`}>
         <a href="#top" className={styles.brand} onClick={() => setOpen(false)}>
           <img src={logo} alt="Pass The Cake logo" className={styles.logo} />
           <span className={styles.brandName}>Pass The Cake</span>
         </a>
 
         <button
+          type="button"
           className={styles.toggle}
-          aria-label="menu"
+          aria-expanded={open}
+          aria-controls="primary-navigation"
+          aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen(!open)}
         >
           <span className={`${styles.bar} ${open ? styles.barTopOpen : ''}`} />
@@ -38,7 +67,7 @@ export default function Navbar() {
           <span className={`${styles.bar} ${open ? styles.barBotOpen : ''}`} />
         </button>
 
-        <ul className={`${styles.links} ${open ? styles.linksOpen : ''}`}>
+        <ul id="primary-navigation" className={`${styles.links} ${open ? styles.linksOpen : ''}`}>
           {links.map((link) => (
             <li key={link.href}>
               <a href={link.href} onClick={() => setOpen(false)}>

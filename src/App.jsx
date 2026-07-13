@@ -10,8 +10,11 @@ import Footer from './components/Footer.jsx'
 export default function App() {
   return (
     <>
+      <a href="#main-content" className="skipLink">
+        Skip to content
+      </a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Menu />
