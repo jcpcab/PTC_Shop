@@ -4,7 +4,15 @@
 
 Website for my small batch cheesecake business, home of the ube cheesecake. Started in 2017.
 
-<!-- TODO: add a screenshot of the live site here, e.g. ![Pass The Cake Shop homepage](./docs/screenshot.png) -->
+<!--
+Screenshot: not yet generated (the site build environment has no browser).
+After deploying, run this from the repo root, then commit docs/screenshot.png
+and replace this comment with:  ![Pass The Cake Shop homepage](./docs/screenshot.png)
+
+  npx -y playwright screenshot --viewport-size "1280,800" https://jcpcab.github.io/PTC_Shop/ docs/screenshot.png
+
+(First run may ask to install a browser: npx playwright install chromium)
+-->
 
 Built with React + Vite and CSS Modules. No CSS frameworks, all styles are hand written.
 
@@ -27,12 +35,17 @@ npm install
 npm run dev
 ```
 
-## Linting & formatting
+## Linting, formatting & tests
 
 ```bash
 npm run lint
 npm run format
+npm test
 ```
+
+Order-form validation is covered by Vitest + React Testing Library
+(`src/components/Order.test.jsx`). Lint, tests, and build also run in CI
+(`.github/workflows/ci.yml`) on every PR and feature-branch push.
 
 ## Building
 
