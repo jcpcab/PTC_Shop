@@ -217,6 +217,24 @@ export default function Order() {
         </div>
 
         <div className={styles.formCard}>
+          <div className={styles.ticketHeader} aria-hidden="true">
+            <span className={styles.ticketTitle}>Guest Check</span>
+            <div className={styles.ticketMeta}>
+              <span className={styles.metaBox}>
+                <span className={styles.metaLabel}>Date</span>
+                {new Date().toLocaleDateString()}
+              </span>
+              <span className={styles.metaBox}>
+                <span className={styles.metaLabel}>Server</span>
+                PTC
+              </span>
+              <span className={styles.metaBox}>
+                <span className={styles.metaLabel}>Check No.</span>
+                <span className={styles.checkNumber}>002017</span>
+              </span>
+            </div>
+          </div>
+
           <div className={styles.field}>
             <label htmlFor="order-name">Name</label>
             <input
@@ -438,6 +456,9 @@ export default function Order() {
                 </p>
                 <div className={styles.receipt}>
                   <pre className={styles.orderText}>{sentOrder.text}</pre>
+                  <p className={styles.thankYou} aria-hidden="true">
+                    Thank You &mdash; Call Again
+                  </p>
                 </div>
                 <button type="button" className={styles.copyAgain} onClick={handleCopyAgain}>
                   {copyAgainLabel}
