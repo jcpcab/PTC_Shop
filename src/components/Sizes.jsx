@@ -20,7 +20,7 @@ export const sizes = [
   {
     name: 'Square',
     diameter: '10 inch',
-    serves: 'Serves 12 to 18',
+    serves: 'Serves 12 to 16',
     note: 'Our biggest bake, with corner pieces for everyone who wants one.',
     price: '$50',
   },
