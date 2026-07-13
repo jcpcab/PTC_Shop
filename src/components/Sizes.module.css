@@ -15,10 +15,10 @@
    section, with a faded center light like an old laminated menu. */
 .card {
   position: relative;
-  background: #6b4f2e;
+  background: #503920;
   background-image: radial-gradient(
     120% 100% at 50% 20%,
-    rgba(255, 240, 214, 0.14),
+    rgba(255, 240, 214, 0.1),
     transparent 65%
   );
   border: 1px solid rgba(232, 213, 188, 0.3);
@@ -139,7 +139,7 @@
 }
 
 .infoCard {
-  background: #6b4f2e;
+  background: #503920;
   background-image: radial-gradient(120% 100% at 50% 0%, rgba(255, 240, 214, 0.1), transparent 70%);
   border: 1px solid rgba(232, 213, 188, 0.3);
   border-radius: var(--radius);
