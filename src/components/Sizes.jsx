@@ -7,8 +7,7 @@ export const sizes = [
     diameter: '6 inch',
     serves: 'Serves 4 to 6',
     note: 'Perfect for a small gathering or keeping all to yourself. No judgment here.',
-    // Placeholder — replace with real pricing before launch.
-    price: '$XX',
+    price: '$25',
   },
   {
     name: 'Round',
@@ -16,16 +15,14 @@ export const sizes = [
     serves: 'Serves 12 to 16',
     note: 'The classic. Just right for family dinners, parties, and celebrations.',
     featured: true,
-    // Placeholder — replace with real pricing before launch.
-    price: '$XX–$XX',
+    price: '$50',
   },
   {
     name: 'Square',
     diameter: '10 inch',
     serves: 'Serves 12 to 18',
     note: 'Our biggest bake, with corner pieces for everyone who wants one.',
-    // Placeholder — replace with real pricing before launch.
-    price: '$XX–$XX',
+    price: '$50',
   },
 ]
 
@@ -38,7 +35,8 @@ export default function Sizes() {
         <span className="sectionLabel">Sizes</span>
         <h2 className="sectionTitle">Made for every occasion</h2>
         <p className="sectionIntro">
-          Every size is baked to order. Message us for current pricing and availability.
+          Every size is baked to order. By-request flavors are priced individually &mdash;
+          we&rsquo;ll confirm the price with you when you order.
         </p>
         <div className={styles.grid}>
           {sizes.map((size) => (
@@ -63,24 +61,26 @@ export default function Sizes() {
             <h3 className={styles.infoTitle}>Allergen info</h3>
             <p className={styles.infoText}>
               All cheesecakes contain dairy and eggs, and the crust contains gluten. The PB&amp;J
-              and Peanut Butter flavors contain peanuts. Let us know about any allergies when you
-              order and we&rsquo;re happy to talk through options, but we do not currently offer
-              dedicated gluten-free, dairy-free, or nut-free bakes.
+              and Peanut Butter flavors contain peanuts. Everything is made in a kitchen that also
+              handles peanuts, wheat, dairy, and eggs, so cross-contact is possible. Let us know
+              about any allergies when you order and we&rsquo;re happy to talk through options,
+              but we do not offer dedicated gluten-free, dairy-free, or nut-free bakes.
             </p>
           </div>
 
           <div className={styles.infoCard}>
             <h3 className={styles.infoTitle}>Pickup &amp; delivery</h3>
             <ul className={styles.infoList}>
-              {/* Placeholders — fill in real service details. */}
               <li>
-                <strong>Area served:</strong> [add your delivery radius / city]
+                <strong>Pickup:</strong> Loma Linda &mdash; we&rsquo;ll arrange a time and share
+                the exact address when your order is confirmed
               </li>
               <li>
-                <strong>Pickup:</strong> [add pickup location or neighborhood]
+                <strong>Also available:</strong> pickup in Koreatown, Los Angeles by arrangement
               </li>
               <li>
-                <strong>Delivery:</strong> [add delivery availability and any fee]
+                <strong>Delivery:</strong> pickup is preferred, but delivery may be possible
+                case-by-case for an extra fee &mdash; just ask
               </li>
               <li>
                 <strong>Lead time:</strong> at least 3 days for signature flavors, more for
