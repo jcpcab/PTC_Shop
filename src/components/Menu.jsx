@@ -1,7 +1,7 @@
 import styles from './Menu.module.css'
 import useFadeIn from '../hooks/useFadeIn.js'
 
-const signature = [
+export const signature = [
   {
     name: 'Ube',
     desc: 'The one that started it all. Velvety cheesecake made with real ube for a flavor you will not find anywhere else nearby.',
@@ -16,7 +16,7 @@ const signature = [
   },
 ]
 
-const byRequest = [
+export const byRequest = [
   {
     name: 'Banana Crème',
     desc: 'Silky banana crème folded into classic cheesecake.',

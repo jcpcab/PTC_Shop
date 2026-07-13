@@ -62,8 +62,84 @@
   font-size: 0.95rem;
 }
 
+.formCard {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.3rem;
+}
+
+.field label {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--brown-dark);
+  background: var(--cream);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: 3px solid var(--tan);
+  outline-offset: 2px;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.error {
+  color: #ffd7d7;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.confirmation {
+  color: var(--white);
+  font-weight: 700;
+  margin-top: 1rem;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .ctaWrap {
   text-align: center;
+}
+
+.ctaWrap .cta {
+  border: none;
+  cursor: pointer;
+}
+
+.ctaWrap .cta:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .cta {
@@ -97,5 +173,13 @@
     max-width: 440px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: 1.5rem;
   }
 }

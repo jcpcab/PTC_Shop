@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import styles from './Order.module.css'
 import useFadeIn from '../hooks/useFadeIn.js'
+import { signature, byRequest } from './Menu.jsx'
+import { sizes } from './Sizes.jsx'
 
 const steps = [
   {
@@ -19,8 +22,129 @@ const steps = [
   },
 ]
 
+const contactMethods = [
+  { value: 'Instagram', label: 'Instagram', placeholder: '@yourhandle' },
+  { value: 'Email', label: 'Email', placeholder: 'you@example.com' },
+  { value: 'Phone', label: 'Phone', placeholder: '(555) 555-5555' },
+]
+
+// Submissions also post here as a backup in case the customer never sends
+// the Instagram DM. Formspree sends a one-time confirmation email to the
+// account owner on the very first real submission through this endpoint —
+// that confirmation must be clicked before notification emails will start
+// arriving for later orders.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpqvzzbw'
+
+const MIN_LEAD_DAYS = 3
+
+function getMinDate() {
+  const d = new Date()
+  d.setDate(d.getDate() + MIN_LEAD_DAYS)
+  return d.toISOString().slice(0, 10)
+}
+
+const initialForm = {
+  name: '',
+  contactMethod: 'Instagram',
+  contactHandle: '',
+  flavor: '',
+  size: '',
+  quantity: 1,
+  dateNeeded: '',
+  instructions: '',
+}
+
 export default function Order() {
   const [ref, visible] = useFadeIn()
+  const [form, setForm] = useState(initialForm)
+  const [errors, setErrors] = useState({})
+  const [status, setStatus] = useState('idle') // idle | sent | sending
+
+  const activeMethod = contactMethods.find((m) => m.value === form.contactMethod)
+
+  function updateField(field, value) {
+    setForm((prev) => ({ ...prev, [field]: value }))
+  }
+
+  function validate() {
+    const next = {}
+
+    if (!form.name.trim()) next.name = 'Please enter your name.'
+    if (!form.contactHandle.trim()) {
+      next.contactHandle = `Please enter your ${activeMethod.label.toLowerCase()}.`
+    }
+    if (!form.flavor) next.flavor = 'Please choose a flavor.'
+    if (!form.size) next.size = 'Please choose a size.'
+    if (!form.quantity || Number(form.quantity) < 1) {
+      next.quantity = 'Quantity must be at least 1.'
+    }
+    if (!form.dateNeeded) {
+      next.dateNeeded = 'Please choose a date.'
+    } else if (form.dateNeeded < getMinDate()) {
+      next.dateNeeded = `Please choose a date at least ${MIN_LEAD_DAYS} days out.`
+    }
+
+    setErrors(next)
+    return Object.keys(next).length === 0
+  }
+
+  function buildOrderText() {
+    return [
+      'New Pass The Cake order',
+      '------------------------',
+      `Name: ${form.name}`,
+      `Contact (${form.contactMethod}): ${form.contactHandle}`,
+      `Flavor: ${form.flavor}`,
+      `Size: ${form.size}`,
+      `Quantity: ${form.quantity}`,
+      `Date needed: ${form.dateNeeded}`,
+      form.instructions.trim() ? `Special instructions: ${form.instructions.trim()}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n')
+  }
+
+  async function handleSubmit() {
+    if (!validate()) return
+
+    setStatus('sending')
+    const orderText = buildOrderText()
+
+    // A — clipboard + Instagram handoff. ig.me opens a blank DM thread and
+    // does not reliably support pre-filled message text, so copying the
+    // order to the clipboard is how we actually get it into the DM.
+    try {
+      await navigator.clipboard.writeText(orderText)
+    } catch (err) {
+      console.error('Could not copy order to clipboard', err)
+    }
+    window.open('https://ig.me/m/passthecakeshop', '_blank', 'noopener,noreferrer')
+
+    // B — Formspree backup. Wrapped in try/catch so a failed POST never
+    // blocks the clipboard + Instagram handoff above.
+    try {
+      await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: 'New Pass The Cake order',
+          name: form.name,
+          contactMethod: form.contactMethod,
+          contactHandle: form.contactHandle,
+          flavor: form.flavor,
+          size: form.size,
+          quantity: form.quantity,
+          dateNeeded: form.dateNeeded,
+          instructions: form.instructions,
+        }),
+      })
+    } catch (err) {
+      console.error('Formspree backup submission failed', err)
+    }
+
+    setStatus('sent')
+    setForm(initialForm)
+  }
 
   return (
     <section id="order" className={styles.order}>
@@ -36,16 +160,184 @@ export default function Order() {
             </div>
           ))}
         </div>
-        <div className={styles.ctaWrap}>
-          <a
-            href="https://instagram.com/passthecakeshop"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-          >
-            DM us on Instagram
-          </a>
-          <p className={styles.ctaNote}>@passthecakeshop</p>
+
+        <div className={styles.formCard}>
+          <div className={styles.field}>
+            <label htmlFor="order-name">Name</label>
+            <input
+              id="order-name"
+              type="text"
+              value={form.name}
+              onChange={(e) => updateField('name', e.target.value)}
+              aria-invalid={Boolean(errors.name)}
+              aria-describedby={errors.name ? 'order-name-error' : undefined}
+            />
+            {errors.name && (
+              <p id="order-name-error" className={styles.error}>
+                {errors.name}
+              </p>
+            )}
+          </div>
+
+          <div className={styles.fieldRow}>
+            <div className={styles.field}>
+              <label htmlFor="order-contact-method">Contact method</label>
+              <select
+                id="order-contact-method"
+                value={form.contactMethod}
+                onChange={(e) => updateField('contactMethod', e.target.value)}
+              >
+                {contactMethods.map((m) => (
+                  <option key={m.value} value={m.value}>
+                    {m.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="order-contact-handle">
+                {activeMethod.label} {activeMethod.value === 'Instagram' ? 'handle' : ''}
+              </label>
+              <input
+                id="order-contact-handle"
+                type={activeMethod.value === 'Email' ? 'email' : 'text'}
+                placeholder={activeMethod.placeholder}
+                value={form.contactHandle}
+                onChange={(e) => updateField('contactHandle', e.target.value)}
+                aria-invalid={Boolean(errors.contactHandle)}
+                aria-describedby={errors.contactHandle ? 'order-contact-handle-error' : undefined}
+              />
+              {errors.contactHandle && (
+                <p id="order-contact-handle-error" className={styles.error}>
+                  {errors.contactHandle}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.fieldRow}>
+            <div className={styles.field}>
+              <label htmlFor="order-flavor">Flavor</label>
+              <select
+                id="order-flavor"
+                value={form.flavor}
+                onChange={(e) => updateField('flavor', e.target.value)}
+                aria-invalid={Boolean(errors.flavor)}
+                aria-describedby={errors.flavor ? 'order-flavor-error' : undefined}
+              >
+                <option value="">Select a flavor</option>
+                <optgroup label="Signature Flavors">
+                  {signature.map((f) => (
+                    <option key={f.name} value={f.name}>
+                      {f.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Available By Request">
+                  {byRequest.map((f) => (
+                    <option key={f.name} value={f.name}>
+                      {f.name}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+              {errors.flavor && (
+                <p id="order-flavor-error" className={styles.error}>
+                  {errors.flavor}
+                </p>
+              )}
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="order-size">Size</label>
+              <select
+                id="order-size"
+                value={form.size}
+                onChange={(e) => updateField('size', e.target.value)}
+                aria-invalid={Boolean(errors.size)}
+                aria-describedby={errors.size ? 'order-size-error' : undefined}
+              >
+                <option value="">Select a size</option>
+                {sizes.map((s) => (
+                  <option key={s.name} value={s.name}>
+                    {s.name} — {s.diameter} ({s.serves})
+                  </option>
+                ))}
+              </select>
+              {errors.size && (
+                <p id="order-size-error" className={styles.error}>
+                  {errors.size}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.fieldRow}>
+            <div className={styles.field}>
+              <label htmlFor="order-quantity">Quantity</label>
+              <input
+                id="order-quantity"
+                type="number"
+                min="1"
+                value={form.quantity}
+                onChange={(e) => updateField('quantity', e.target.value)}
+                aria-invalid={Boolean(errors.quantity)}
+                aria-describedby={errors.quantity ? 'order-quantity-error' : undefined}
+              />
+              {errors.quantity && (
+                <p id="order-quantity-error" className={styles.error}>
+                  {errors.quantity}
+                </p>
+              )}
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="order-date">Date needed</label>
+              <input
+                id="order-date"
+                type="date"
+                min={getMinDate()}
+                value={form.dateNeeded}
+                onChange={(e) => updateField('dateNeeded', e.target.value)}
+                aria-invalid={Boolean(errors.dateNeeded)}
+                aria-describedby={errors.dateNeeded ? 'order-date-error' : undefined}
+              />
+              {errors.dateNeeded && (
+                <p id="order-date-error" className={styles.error}>
+                  {errors.dateNeeded}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="order-instructions">Special instructions</label>
+            <textarea
+              id="order-instructions"
+              rows="4"
+              placeholder="Allergies, message on the box, anything else we should know"
+              value={form.instructions}
+              onChange={(e) => updateField('instructions', e.target.value)}
+            />
+          </div>
+
+          <div className={styles.ctaWrap}>
+            <button
+              type="button"
+              className={styles.cta}
+              onClick={handleSubmit}
+              disabled={status === 'sending'}
+            >
+              {status === 'sending' ? 'Sending…' : 'Copy order & open Instagram'}
+            </button>
+            {status === 'sent' && (
+              <p className={styles.confirmation} role="status">
+                Your order&rsquo;s copied — just paste it into the DM and hit send.
+              </p>
+            )}
+            <p className={styles.ctaNote}>@passthecakeshop</p>
+          </div>
         </div>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import styles from './Sizes.module.css'
 import useFadeIn from '../hooks/useFadeIn.js'
 
-const sizes = [
+export const sizes = [
   {
     name: 'Personal',
     diameter: '6 inch',
