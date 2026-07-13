@@ -38,9 +38,12 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpqvzzbw'
 const MIN_LEAD_DAYS = 3
 
 function getMinDate() {
+  // Build the date string from local time — toISOString() is UTC and can be
+  // a day off near midnight for users west of Greenwich.
   const d = new Date()
   d.setDate(d.getDate() + MIN_LEAD_DAYS)
-  return d.toISOString().slice(0, 10)
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 }
 
 const initialForm = {
@@ -52,6 +55,10 @@ const initialForm = {
   quantity: 1,
   dateNeeded: '',
   instructions: '',
+  // Honeypot — humans never see or fill this field. Formspree ignores
+  // submissions where `_gotcha` is empty and rejects ones where it's filled,
+  // and we also skip the whole submit locally if a bot filled it.
+  _gotcha: '',
 }
 
 export default function Order() {
@@ -107,6 +114,14 @@ export default function Order() {
   async function handleSubmit() {
     if (!validate()) return
 
+    // Honeypot tripped: a bot filled the hidden field. Pretend success and
+    // do nothing — no clipboard, no Instagram tab, no Formspree POST.
+    if (form._gotcha) {
+      setStatus('sent')
+      setForm(initialForm)
+      return
+    }
+
     setStatus('sending')
     const orderText = buildOrderText()
 
@@ -136,6 +151,7 @@ export default function Order() {
           quantity: form.quantity,
           dateNeeded: form.dateNeeded,
           instructions: form.instructions,
+          _gotcha: form._gotcha,
         }),
       })
     } catch (err) {
@@ -319,6 +335,21 @@ export default function Order() {
               placeholder="Allergies, message on the box, anything else we should know"
               value={form.instructions}
               onChange={(e) => updateField('instructions', e.target.value)}
+            />
+          </div>
+
+          {/* Honeypot field — visually hidden and skipped by keyboard/screen
+              readers; only bots that blindly fill every input will touch it. */}
+          <div className={styles.honeypot} aria-hidden="true">
+            <label htmlFor="order-website">Leave this field empty</label>
+            <input
+              id="order-website"
+              type="text"
+              name="_gotcha"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form._gotcha}
+              onChange={(e) => updateField('_gotcha', e.target.value)}
             />
           </div>
 
