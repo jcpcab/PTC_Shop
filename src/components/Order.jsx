@@ -70,6 +70,9 @@ export default function Order() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sent | sending
+  // After submit: { text, copied } — shown so the customer can re-copy it.
+  const [sentOrder, setSentOrder] = useState(null)
+  const [copyAgainLabel, setCopyAgainLabel] = useState('Copy again')
 
   const activeMethod = contactMethods.find((m) => m.value === form.contactMethod)
 
@@ -121,52 +124,65 @@ export default function Order() {
   async function handleSubmit() {
     if (!validate()) return
 
+    const orderText = buildOrderText()
+
     // Honeypot tripped: a bot filled the hidden field. Pretend success and
     // do nothing — no clipboard, no Instagram tab, no Formspree POST.
     if (form._gotcha) {
+      setSentOrder({ text: orderText, copied: true })
       setStatus('sent')
       setForm(initialForm)
       return
     }
 
     setStatus('sending')
-    const orderText = buildOrderText()
 
     // A — clipboard + Instagram handoff. ig.me opens a blank DM thread and
     // does not reliably support pre-filled message text, so copying the
     // order to the clipboard is how we actually get it into the DM.
+    let copied = false
     try {
       await navigator.clipboard.writeText(orderText)
+      copied = true
     } catch (err) {
       console.error('Could not copy order to clipboard', err)
     }
     window.open('https://ig.me/m/passthecakeshop', '_blank', 'noopener,noreferrer')
 
-    // B — Formspree backup. Wrapped in try/catch so a failed POST never
-    // blocks the clipboard + Instagram handoff above.
-    try {
-      await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          _subject: 'New Pass The Cake order',
-          name: form.name,
-          contactMethod: form.contactMethod,
-          contactHandle: form.contactHandle,
-          flavor: form.flavor,
-          size: form.size,
-          quantity: form.quantity,
-          dateNeeded: form.dateNeeded,
-          instructions: form.instructions,
-          _gotcha: form._gotcha,
-        }),
-      })
-    } catch (err) {
-      console.error('Formspree backup submission failed', err)
-    }
-
+    // Confirm right away — the Formspree backup below must never delay or
+    // block the confirmation (slow networks and ad blockers both stall it).
+    setSentOrder({ text: orderText, copied })
     setStatus('sent')
     setForm(initialForm)
+
+    // B — Formspree backup, fire-and-forget.
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        _subject: 'New Pass The Cake order',
+        name: form.name,
+        contactMethod: form.contactMethod,
+        contactHandle: form.contactHandle,
+        flavor: form.flavor,
+        size: form.size,
+        quantity: form.quantity,
+        dateNeeded: form.dateNeeded,
+        instructions: form.instructions,
+        _gotcha: form._gotcha,
+      }),
+    }).catch((err) => console.error('Formspree backup submission failed', err))
+  }
+
+  async function handleCopyAgain() {
+    if (!sentOrder) return
+    try {
+      await navigator.clipboard.writeText(sentOrder.text)
+      setCopyAgainLabel('Copied!')
+    } catch {
+      setCopyAgainLabel('Copy failed — select the text above')
+    }
+    setTimeout(() => setCopyAgainLabel('Copy again'), 2500)
   }
 
   return (
@@ -377,10 +393,18 @@ export default function Order() {
             >
               {status === 'sending' ? 'Sending…' : 'Copy order & open Instagram'}
             </button>
-            {status === 'sent' && (
-              <p className={styles.confirmation} role="status">
-                Your order&rsquo;s copied — just paste it into the DM and hit send.
-              </p>
+            {status === 'sent' && sentOrder && (
+              <div className={styles.sentPanel} role="status">
+                <p className={styles.confirmation}>
+                  {sentOrder.copied
+                    ? 'Copied to your clipboard! Paste it into the Instagram DM and hit send.'
+                    : 'We couldn\u2019t auto-copy on this browser \u2014 use the button below, then paste it into the Instagram DM.'}
+                </p>
+                <pre className={styles.orderText}>{sentOrder.text}</pre>
+                <button type="button" className={styles.copyAgain} onClick={handleCopyAgain}>
+                  {copyAgainLabel}
+                </button>
+              </div>
             )}
             <p className={styles.ctaNote}>@passthecakeshop</p>
           </div>

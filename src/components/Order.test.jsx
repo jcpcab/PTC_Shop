@@ -63,6 +63,11 @@ describe('Order form validation', () => {
       'noopener,noreferrer',
     )
     expect(navigator.clipboard.writeText).toHaveBeenCalledOnce()
+
+    // The full order text stays on screen so the customer can re-copy it.
+    expect(screen.getByText(/Flavor: Ube/)).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /copy again/i }))
+    expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(2)
   })
 
   it('requires special instructions when "Other / Special request" is chosen', async () => {
