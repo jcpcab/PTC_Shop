@@ -4,3 +4,4 @@ dist
 *.local
 .vscode
 vite.config.js.timestamp-*.mjs
+new-photos/
