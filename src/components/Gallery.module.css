@@ -17,16 +17,16 @@
   grid-template-areas:
     'a a b c'
     'a a b c'
-    'a a b d'
-    'a a b d'
+    'a a b c'
     'a a f d'
-    'g i f m'
-    'g i h m'
-    'g i h m'
-    'l i h m'
-    'l j k e'
-    'n j k e'
-    'n j k e';
+    'a a f d'
+    'k g h d'
+    'k g h i'
+    'k g h i'
+    'k j m i'
+    'e j m i'
+    'e l m n'
+    'e l m n';
   gap: clamp(0.8rem, 1.9vw, 1.4rem);
   margin-top: 2.5rem;
 }
@@ -231,10 +231,11 @@
     aspect-ratio: 3 / 4;
   }
 
-  /* the dog photo, the cutting video, and the in-hand shot are near-9:16 —
-     keep them tall */
+  /* the dog photo, the cutting video, the garden boxes, and the in-hand
+     shot are near-9:16 — keep them tall */
   .item:nth-child(2),
   .item:nth-child(9),
+  .item:nth-child(11),
   .item:nth-child(13) {
     aspect-ratio: 9 / 16;
     grid-row: span 2;
