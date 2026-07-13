@@ -1,6 +1,7 @@
 import styles from './About.module.css'
 import useFadeIn from '../hooks/useFadeIn.js'
 import aboutImg from '../assets/about-family.jpg'
+import aboutImgWebp from '../assets/about-family.webp'
 
 export default function About() {
   const [ref, visible] = useFadeIn()
@@ -9,7 +10,17 @@ export default function About() {
     <section id="about" className={styles.about}>
       <div ref={ref} className={`container ${styles.inner} fadeIn ${visible ? 'visible' : ''}`}>
         <div className={styles.imageWrap}>
-          <img src={aboutImg} alt="me with two fresh cheesecakes" className={styles.image} />
+          <picture>
+            <source srcSet={aboutImgWebp} type="image/webp" />
+            <img
+              src={aboutImg}
+              alt="me with two fresh cheesecakes"
+              className={styles.image}
+              width="750"
+              height="1000"
+              loading="lazy"
+            />
+          </picture>
         </div>
         <div className={styles.copy}>
           <span className="sectionLabel">Our Story</span>

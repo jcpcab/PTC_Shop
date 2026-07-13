@@ -1,5 +1,6 @@
 import styles from './Hero.module.css'
 import heroImg from '../assets/gallery-slice.jpg'
+import heroImgWebp from '../assets/gallery-slice.webp'
 
 export default function Hero() {
   return (
@@ -24,7 +25,17 @@ export default function Hero() {
           </div>
         </div>
         <div className={styles.imageWrap}>
-          <img src={heroImg} alt="slice of blueberry cheesecake" className={styles.image} />
+          <picture>
+            <source srcSet={heroImgWebp} type="image/webp" />
+            <img
+              src={heroImg}
+              alt="slice of blueberry cheesecake"
+              className={styles.image}
+              width="675"
+              height="900"
+              fetchpriority="high"
+            />
+          </picture>
         </div>
       </div>
     </section>
