@@ -15,10 +15,10 @@
    section, with a faded center light like an old laminated menu. */
 .card {
   position: relative;
-  background: #bfa075;
+  background: #a1835a;
   background-image: radial-gradient(
     120% 100% at 50% 20%,
-    rgba(255, 240, 214, 0.35),
+    rgba(255, 240, 214, 0.22),
     transparent 65%
   );
   border: 1px solid rgba(56, 32, 15, 0.45);
@@ -100,7 +100,7 @@
 }
 
 .note {
-  color: #5d452c;
+  color: #47331c;
   font-size: 0.95rem;
 }
 
@@ -128,7 +128,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #7a5f3f;
+  color: #59422a;
 }
 
 .infoGrid {
@@ -139,8 +139,8 @@
 }
 
 .infoCard {
-  background: #bfa075;
-  background-image: radial-gradient(120% 100% at 50% 0%, rgba(255, 240, 214, 0.3), transparent 70%);
+  background: #a1835a;
+  background-image: radial-gradient(120% 100% at 50% 0%, rgba(255, 240, 214, 0.2), transparent 70%);
   border: 1px solid rgba(56, 32, 15, 0.45);
   border-radius: var(--radius);
   padding: 1.6rem 1.8rem;
@@ -153,7 +153,7 @@
 }
 
 .infoText {
-  color: #4f3a22;
+  color: #3d2c17;
   font-size: 0.95rem;
 }
 
@@ -162,7 +162,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  color: #4f3a22;
+  color: #3d2c17;
   font-size: 0.95rem;
 }
 

@@ -232,6 +232,11 @@
 .field textarea {
   resize: vertical;
   line-height: 1.7em;
+  padding-top: 0;
+  padding-bottom: 0;
+  /* start at exactly five ruled lines so none is cut mid-gap */
+  min-height: calc(1.7em * 5);
+  background-attachment: local;
   background-image: repeating-linear-gradient(
     to bottom,
     transparent 0,

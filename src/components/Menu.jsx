@@ -4,7 +4,7 @@ import useFadeIn from '../hooks/useFadeIn.js'
 export const signature = [
   {
     name: 'Ube',
-    desc: 'The one that started it all. Velvety cheesecake made with real ube for a flavor you will not find anywhere else nearby.',
+    desc: 'The one that started it all. Velvety cheesecake made with real ube for a flavor you will not find anywhere else nearby. Served with a homemade blueberry syrup on the side.',
   },
   {
     name: 'Cinnabon',
@@ -12,7 +12,7 @@ export const signature = [
   },
   {
     name: 'PB&J',
-    desc: 'A childhood favorite all grown up. Creamy peanut butter ribboned with sweet jam.',
+    desc: 'A childhood favorite all grown up. Creamy peanut butter ribboned with sweet jam. Served with a homemade mixed berry syrup.',
   },
 ]
 
@@ -27,7 +27,7 @@ export const byRequest = [
   },
   {
     name: 'Raspberry Swirl',
-    desc: 'Bright raspberry ribbons for a tart, fruity finish.',
+    desc: 'Bright raspberry ribbons for a tart, fruity finish. Served with a homemade mixed berry syrup.',
   },
 ]
 

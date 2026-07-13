@@ -410,7 +410,7 @@ export default function Order() {
             <textarea
               id="order-instructions"
               rows="4"
-              placeholder="Allergies, message on the box, anything else we should know"
+              placeholder="Allergies, a custom berry or fruit syrup to go with your cake, anything else we should know"
               value={form.instructions}
               onChange={(e) => updateField('instructions', e.target.value)}
               aria-invalid={Boolean(errors.instructions)}
