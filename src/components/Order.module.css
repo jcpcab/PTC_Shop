@@ -69,7 +69,7 @@
 /* The form is a diner guest check: cream header band, pale-green ruled body,
    red margin line, torn bottom edge. */
 .formCard {
-  --ticket-paper: #e9efdc;
+  --ticket-paper: #dfe9cd;
   --ticket-ink: #2f3a45;
   --ticket-line: rgba(84, 110, 140, 0.55);
   position: relative;
@@ -77,27 +77,13 @@
   /* layers: faint aging light at the top, red margin line down the left,
      and the classic double price-column rule down the right */
   background-image:
-    linear-gradient(180deg, rgba(255, 255, 250, 0.4), transparent 140px),
+    linear-gradient(180deg, rgba(255, 255, 250, 0.35), transparent 120px),
     linear-gradient(
       to right,
       transparent 22px,
-      rgba(200, 90, 74, 0.55) 22px,
-      rgba(200, 90, 74, 0.55) 23px,
+      rgba(200, 90, 74, 0.5) 22px,
+      rgba(200, 90, 74, 0.5) 23px,
       transparent 23px
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(100% - 88px),
-      var(--ticket-line) calc(100% - 88px),
-      var(--ticket-line) calc(100% - 87px),
-      transparent calc(100% - 87px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(100% - 56px),
-      var(--ticket-line) calc(100% - 56px),
-      var(--ticket-line) calc(100% - 55px),
-      transparent calc(100% - 55px)
     );
   /* square corners — it's a slip torn off an order pad, not a card */
   border-radius: 0;
@@ -137,10 +123,10 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 500;
-  font-size: 2.1rem;
+  font-size: 1.95rem;
   line-height: 1.1;
   color: #3c4c5e;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.5rem;
 }
 
 .ticketMeta {
@@ -182,19 +168,38 @@
   letter-spacing: 0.06em;
 }
 
+/* Each row reads like a line on the pad: NAME ____________ */
 .field {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1.3rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
 }
 
 .field label {
+  flex: 0 0 auto;
   color: #546e8c;
   font-weight: 800;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.field input,
+.field select {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The notes pad gets its own full-width lines under the label. */
+.field textarea {
+  flex: 1 1 100%;
+}
+
+.field .error {
+  flex: 0 0 100%;
+  margin: 0;
 }
 
 /* Inputs sit on the check's ruled lines: transparent with an ink underline. */
@@ -208,7 +213,7 @@
   border: none;
   border-bottom: 1.5px solid var(--ticket-line);
   border-radius: 0;
-  padding: 0.45rem 0.2rem;
+  padding: 0.25rem 0.2rem;
 }
 
 .field input::placeholder,
@@ -254,10 +259,10 @@
 }
 
 .sentPanel {
-  margin: 1.6rem auto 0;
+  margin: 1.4rem auto 0;
   max-width: 480px;
   display: grid;
-  gap: 0.9rem;
+  gap: 0.8rem;
   justify-items: center;
 }
 
@@ -297,7 +302,7 @@
   font-size: 1.3rem;
   color: #3c4c5e;
   text-align: center;
-  margin: 1.6rem 0 -0.6rem;
+  margin: 1.2rem 0 -0.6rem;
 }
 
 .copyAgain {
@@ -334,7 +339,7 @@
 
 .ctaWrap {
   text-align: center;
-  margin-top: 1.8rem;
+  margin-top: 1.5rem;
 }
 
 .ctaWrap .cta {

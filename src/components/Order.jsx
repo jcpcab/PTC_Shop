@@ -291,7 +291,7 @@ export default function Order() {
 
           {form.contactMethod === 'Email' && (
             <div className={styles.field}>
-              <label htmlFor="order-phone">Phone number (email can be slow to check)</label>
+              <label htmlFor="order-phone">Phone number</label>
               <input
                 id="order-phone"
                 type="tel"
