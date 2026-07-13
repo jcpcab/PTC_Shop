@@ -26,6 +26,9 @@
 .image {
   position: relative;
   width: 100%;
+  /* height:auto keeps the photo at its native aspect ratio — without it the
+     HTML height attribute stretches the image to a fixed pixel height. */
+  height: auto;
   border-radius: 22px;
   box-shadow: var(--shadow);
 }
