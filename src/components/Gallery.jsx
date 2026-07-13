@@ -18,17 +18,64 @@ import boxes from '../assets/gallery-boxes.jpg'
 import boxesWebp from '../assets/gallery-boxes.webp'
 import blueberry from '../assets/hero-cheesecake.jpg'
 import blueberryWebp from '../assets/hero-cheesecake.webp'
+import syrupSlice from '../assets/gallery-syrup-slice.jpg'
+import syrupSliceWebp from '../assets/gallery-syrup-slice.webp'
+import raspberry from '../assets/gallery-raspberry.jpg'
+import raspberryWebp from '../assets/gallery-raspberry.webp'
+import ubeHand from '../assets/gallery-ube-hand.jpg'
+import ubeHandWebp from '../assets/gallery-ube-hand.webp'
+import boxesGarden from '../assets/gallery-boxes-garden.jpg'
+import boxesGardenWebp from '../assets/gallery-boxes-garden.webp'
+import syrupPourVideo from '../assets/video-syrup-pour.mp4'
+import syrupPourPoster from '../assets/video-syrup-pour-poster.jpg'
+import raspberryCutVideo from '../assets/video-raspberry-cut.mp4'
+import raspberryCutPoster from '../assets/video-raspberry-cut-poster.jpg'
 
-// Each photo hangs in its own frame on the gallery wall: gilded gold, dark
-// wood, cream-matted bronze, or a taped snapshot like the hero/about photos.
+// Each piece hangs in its own frame on the gallery wall. Order matters:
+// position in this list maps to a named slot in the CSS grid composition.
+// Videos are silent moving pictures — the audio track is stripped from the
+// files themselves, and they stay muted everywhere they play.
 const pics = [
+  { src: dark, webp: darkWebp, alt: 'cheesecake at dinner', w: 506, h: 900, frame: 'gold' },
+  // Full-frame on purpose: shown letterboxed in a cream mat, never cropped.
+  {
+    src: dog,
+    webp: dogWebp,
+    alt: 'my husky eyeing an ube cheesecake',
+    w: 506,
+    h: 900,
+    frame: 'full',
+  },
   {
     src: slice,
     webp: sliceWebp,
     alt: 'slice of blueberry cheesecake',
     w: 675,
     h: 900,
+    frame: 'wood',
+  },
+  {
+    src: syrupSlice,
+    webp: syrupSliceWebp,
+    alt: 'ube cheesecake slice with homemade blueberry syrup',
+    w: 720,
+    h: 960,
     frame: 'gold',
+  },
+  {
+    type: 'video',
+    src: syrupPourVideo,
+    poster: syrupPourPoster,
+    alt: 'homemade blueberry syrup poured over an ube cheesecake',
+    frame: 'wood',
+  },
+  {
+    src: raspberry,
+    webp: raspberryWebp,
+    alt: 'whole raspberry swirl cheesecake',
+    w: 720,
+    h: 960,
+    frame: 'mat',
   },
   {
     src: ubeBox,
@@ -47,12 +94,11 @@ const pics = [
     frame: 'wood',
   },
   {
-    src: dog,
-    webp: dogWebp,
-    alt: 'my husky eyeing an ube cheesecake',
-    w: 506,
-    h: 900,
-    frame: 'mat',
+    type: 'video',
+    src: raspberryCutVideo,
+    poster: raspberryCutPoster,
+    alt: 'slicing a raspberry swirl cheesecake',
+    frame: 'gold',
   },
   {
     src: flowers,
@@ -60,7 +106,7 @@ const pics = [
     alt: 'boxed cheesecake in front of flowers',
     w: 506,
     h: 900,
-    frame: 'wood',
+    frame: 'snapshot',
   },
   {
     src: outdoor,
@@ -70,7 +116,6 @@ const pics = [
     h: 900,
     frame: 'mat',
   },
-  { src: dark, webp: darkWebp, alt: 'cheesecake at dinner', w: 506, h: 900, frame: 'gold' },
   {
     src: boxes,
     webp: boxesWebp,
@@ -79,6 +124,22 @@ const pics = [
     h: 900,
     frame: 'snapshot',
   },
+  {
+    src: ubeHand,
+    webp: ubeHandWebp,
+    alt: 'whole ube cheesecake held up, fresh out of the kitchen',
+    w: 720,
+    h: 1280,
+    frame: 'wood',
+  },
+  {
+    src: boxesGarden,
+    webp: boxesGardenWebp,
+    alt: 'cake boxes held up in the garden',
+    w: 720,
+    h: 1280,
+    frame: 'gold',
+  },
 ]
 
 const frameClass = {
@@ -86,6 +147,7 @@ const frameClass = {
   wood: 'frameWood',
   mat: 'frameMat',
   snapshot: 'frameSnapshot',
+  full: 'frameFull',
 }
 
 export default function Gallery() {
@@ -170,12 +232,26 @@ export default function Gallery() {
                 type="button"
                 className={styles.itemButton}
                 onClick={(e) => openLightbox(index, e)}
-                aria-label={`Enlarge photo: ${pic.alt}`}
+                aria-label={`Enlarge ${pic.type === 'video' ? 'video' : 'photo'}: ${pic.alt}`}
               >
-                <picture>
-                  <source srcSet={pic.webp} type="image/webp" />
-                  <img src={pic.src} alt={pic.alt} loading="lazy" width={pic.w} height={pic.h} />
-                </picture>
+                {pic.type === 'video' ? (
+                  <video
+                    className={styles.itemVideo}
+                    src={pic.src}
+                    poster={pic.poster}
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                    preload="metadata"
+                    aria-label={pic.alt}
+                  />
+                ) : (
+                  <picture>
+                    <source srcSet={pic.webp} type="image/webp" />
+                    <img src={pic.src} alt={pic.alt} loading="lazy" width={pic.w} height={pic.h} />
+                  </picture>
+                )}
               </button>
             </figure>
           ))}
@@ -209,10 +285,23 @@ export default function Gallery() {
             >
               &#8249;
             </button>
-            <picture>
-              <source srcSet={active.webp} type="image/webp" />
-              <img src={active.src} alt={active.alt} className={styles.dialogImage} />
-            </picture>
+            {active.type === 'video' ? (
+              <video
+                className={styles.dialogImage}
+                src={active.src}
+                poster={active.poster}
+                muted
+                loop
+                autoPlay
+                playsInline
+                aria-label={active.alt}
+              />
+            ) : (
+              <picture>
+                <source srcSet={active.webp} type="image/webp" />
+                <img src={active.src} alt={active.alt} className={styles.dialogImage} />
+              </picture>
+            )}
             <button
               type="button"
               className={`${styles.nav} ${styles.navNext}`}

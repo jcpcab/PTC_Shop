@@ -7,19 +7,26 @@
     linear-gradient(165deg, #4a2c1a 0%, #36200f 55%, #2b1810 100%);
 }
 
-/* A composed collage: one feature frame, small squares, tall portraits and a
-   wide landscape, arranged the way a real gallery wall is. */
+/* A composed collage: one feature frame, tall full-frame pieces (the dog
+   photo and the two videos), squares, portraits and a 2x2, arranged the way
+   a real gallery wall is. Letters follow the order of the pics array. */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(6, 106px);
+  grid-template-rows: repeat(12, 96px);
   grid-template-areas:
     'a a b c'
     'a a b c'
-    'a a d e'
-    'f g d e'
-    'f g h h'
-    'f g h h';
+    'a a b c'
+    'e d b i'
+    'e d j i'
+    'e d j i'
+    'e f f i'
+    'g f f h'
+    'g k m h'
+    'g k m h'
+    'l k m n'
+    'l k m n';
   gap: 1.4rem;
   margin-top: 2.5rem;
 }
@@ -54,6 +61,30 @@
 
 .item:nth-child(8) {
   grid-area: h;
+}
+
+.item:nth-child(9) {
+  grid-area: i;
+}
+
+.item:nth-child(10) {
+  grid-area: j;
+}
+
+.item:nth-child(11) {
+  grid-area: k;
+}
+
+.item:nth-child(12) {
+  grid-area: l;
+}
+
+.item:nth-child(13) {
+  grid-area: m;
+}
+
+.item:nth-child(14) {
+  grid-area: n;
 }
 
 .item {
@@ -107,6 +138,13 @@
   height: 100%;
 }
 
+.itemVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Gilded gold frame with a bright ridge. */
 .frameGold {
   padding: 11px;
@@ -136,6 +174,22 @@
 .frameMat .itemButton {
   padding: 14px;
   background: var(--cream);
+}
+
+/* Full-frame mat: slim bronze frame, cream mat, and the photo shown
+   complete — letterboxed, never cropped. */
+.frameFull {
+  padding: 8px;
+  background: linear-gradient(150deg, #7c5a33, #97744a);
+}
+
+.frameFull .itemButton {
+  padding: 10px;
+  background: var(--cream);
+}
+
+.frameFull img {
+  object-fit: contain;
 }
 
 /* Taped snapshot, same as the hero and about photos. */
@@ -168,19 +222,20 @@
     gap: 1.4rem;
   }
 
-  .item:nth-child(1),
-  .item:nth-child(2),
-  .item:nth-child(3),
-  .item:nth-child(4),
-  .item:nth-child(5),
-  .item:nth-child(6),
-  .item:nth-child(7),
-  .item:nth-child(8) {
+  .item:nth-child(-n + 14) {
     grid-area: auto;
   }
 
   .item {
     aspect-ratio: 3 / 4;
+  }
+
+  /* the dog photo and the two videos are near-9:16 — keep them tall */
+  .item:nth-child(2),
+  .item:nth-child(5),
+  .item:nth-child(9) {
+    aspect-ratio: 9 / 16;
+    grid-row: span 2;
   }
 }
 
